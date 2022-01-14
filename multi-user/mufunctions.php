@@ -154,7 +154,7 @@ function isValidUser($user, $pass) {
 			'userBaseDN'		=> 	YOURLS_MULTIUSER_LDAP_USERBASEDN,
 		);
 		
-		$ldapUser = "uid=".$user.",".$ldapOptions[userBaseDN];
+		$ldapUser = "uid=".$user.",".$ldapOptions['userBaseDN'];
 	
 		$ldapDS = ldap_connect($ldapOptions['host']) 
 			or die("Could not connect to {$ldapOptions['host']}");
