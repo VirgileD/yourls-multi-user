@@ -52,6 +52,7 @@ function preAddLink($args) {
 		}
 	}
 }
+
 function tryToInstall() {
 	global $ydb;
 	global $yourls_user_passwords;
@@ -72,7 +73,7 @@ function tryToInstall() {
 			// Problems on creation.
 		} else {
 			foreach ($yourls_user_passwords as $username => $pass) {
-				error_log($username."=>".$pass)
+				error_log($username."=>".$pass);
 				$token = createRandonToken();
 				$password = md5($pass);
 				$ydb->query("insert into `$tableuser` (user_email, user_password, user_token) values ('$username', '$password', '$token')");
@@ -90,6 +91,16 @@ function tryToInstall() {
 		$create_success = $ydb->query("SHOW TABLES LIKE '$table'");
 		if(!$create_success) {
 			// Problems on creation.
+		} else {
+				$table = YOURLS_DB_TABLE_URL_TO_USER;
+				$user_id = getUserIdByToken($token);
+				$results = $ydb->get_results("select keyword from yourls_url");
+				if (!empty($results)) {
+					foreach($results as $result) {
+						$ydb->query("insert into `$table` (url_keyword, users_user_id) values ('$result->keyword', '$user_id')");
+					}
+				}
+
 		}
 	}
 

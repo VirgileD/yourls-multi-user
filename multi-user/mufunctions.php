@@ -146,7 +146,7 @@ function isValidUser($user, $pass) {
     $authenticated = false;
     $authorized = false;
 
-    if ( YOURLS_MULTIUSER_LDAP ) {	
+    if ( YOURLS_MULTIUSER_LDAP ) {
 		$ldapOptions =  array(
 			'host' 		=>	YOURLS_MULTIUSER_LDAP_HOST,
 			'port'			=> 	YOURLS_MULTIUSER_LDAP_PORT,
@@ -186,6 +186,12 @@ function isValidUser($user, $pass) {
 			/* ldap_close( $ldapDS ); */
 		} else {
 		    /* authentication failed */
+			/* see if we have a local account  */
+			$pass = md5($pass);
+			$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$pass'");
+			if(!empty($results)) {
+				return true;
+			}
 		    return false;
 		}
 		
@@ -295,7 +301,7 @@ ROW;
 
 function muAdminUrl($page = '') {
 	$admin = YOURLS_SITE . '/user/plugins/multi-user/' . $page;
-	if ( 'YOURLS_ADMIN_SSL'===true ) {
+	if ( YOURLS_ADMIN_SSL===true ) {
 		$admin = str_replace('http:', 'https:', $admin );
 	}
 
