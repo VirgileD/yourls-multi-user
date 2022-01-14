@@ -295,7 +295,7 @@ ROW;
 
 function muAdminUrl($page = '') {
 	$admin = YOURLS_SITE . '/user/plugins/multi-user/' . $page;
-	if ( defined ( 'YOURLS_ADMIN_SSL' ) ) {
+	if ( 'YOURLS_ADMIN_SSL'===true ) {
 		$admin = str_replace('http:', 'https:', $admin );
 	}
 
