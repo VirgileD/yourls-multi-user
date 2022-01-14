@@ -133,9 +133,9 @@ if(isLogged()) {
 	if (! isAdmin() ) {
 		$where .= " and `keyword` in (select url_keyword from `$tableUrlToUser` where `users_user_id` = '".$user["id"]."') ";
 	}
-	list( $total_urls, $total_clicks ) = array_values( yourls_get_db_stats($where) );
+	list( $total_urls, $total_clicks ) = array_values( yourls_get_db_stats([ 'sql' => $where, 'binds' => [] ]) );
 	if ( $where ) {
-		list( $total_items, $total_items_clicks ) = array_values( yourls_get_db_stats( $where ) );
+		list( $total_items, $total_items_clicks ) = array_values( yourls_get_db_stats( [ 'sql' => $where, 'binds' => [] ] ) );
 	} else {
 		$total_items = $total_urls;
 		$total_items_clicks = false;
@@ -223,7 +223,7 @@ if(isLogged()) {
 	Display <strong><?php echo $display_on_page; ?> </strong> to <strong
 		class='increment'><?php echo $max_on_page; ?> </strong> of <strong
 		class='increment'><?php echo $total_items; ?> </strong> URLs
-		<?php if( $total_items_clicks !== false ) echo ", counting <strong>$total_items_clicks</strong> " . yourls_n('click', $total_items_clicks) ?>
+		<?php if( $total_items_clicks !== false ) echo ", counting <strong>$total_items_clicks</strong> " . yourls_n('click', 'clicks', $total_items_clicks) ?>
 	.
 </p>
 		<?php } ?>
