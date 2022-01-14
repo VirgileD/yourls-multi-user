@@ -72,6 +72,7 @@ function tryToInstall() {
 			// Problems on creation.
 		} else {
 			foreach ($yourls_user_passwords as $username => $pass) {
+				error_log($username."=>".$pass)
 				$token = createRandonToken();
 				$password = md5($pass);
 				$ydb->query("insert into `$tableuser` (user_email, user_password, user_token) values ('$username', '$password', '$token')");
