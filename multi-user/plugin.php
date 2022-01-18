@@ -73,10 +73,10 @@ function tryToInstall() {
 			// Problems on creation.
 		} else {
 			foreach ($yourls_user_passwords as $username => $pass) {
-				error_log($username."=>".$pass);
 				$token = createRandonToken();
-				$password = yourls_phpass_hash( $pass );
-				$ydb->query("insert into `$tableuser` (user_email, user_password, user_token) values ('$username', '$password', '$token')");
+				// create an entry for the local admin user, because it will be the owner of all previously existing urls
+				// but its password will not be checked against DB, only against the password set through config.php
+				$ydb->query("insert into `$tableuser` (user_email, user_password, user_token) values ('$username', 'whatever', '$token')");
 			}
 		}
 	}

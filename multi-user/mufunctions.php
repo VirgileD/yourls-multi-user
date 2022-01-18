@@ -186,15 +186,11 @@ function isValidUser($user, $pass) {
 			/* ldap_close( $ldapDS ); */
 		} else {
 		    /* authentication failed */
-			/* see if we have a local account  */
-			$passw = yourls_phpass_hash( $pass );
-			$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$passw'");
-			if(!empty($results)) {
-				return true;
-			}
-		    return false;
+			/* see if this is the local admin */
+			return yourls_check_password_hash( $user, $pass );
 		}
-		
+
+		// only apply to ldap users
 		if ( $authenticated && $authorized ) {
 			/* are they in the local database? */
 			$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' AND user_password = '$boguspass'");
@@ -205,6 +201,7 @@ function isValidUser($user, $pass) {
 			return true;
 		}	
 	} else {
+		// 
 		/* see if we have a local account  */
 		$passw = yourls_phpass_hash( $pass );
 		$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$passw'");
