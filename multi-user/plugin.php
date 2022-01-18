@@ -143,19 +143,17 @@ function updateLinkInsert($args) {
 	$url = $args[0];
 	$keyword = $args[1];
 	$title = $args[2];
-	$return = $args[3];
-	if($return['status']!='fail') {// don't try to update url_t_user if it failed to insert link
-		$token = ( isset( $_REQUEST['token'] ) ? yourls_sanitize_string($_REQUEST['token']) : '' );
-		$user = getUserIdByToken($token);
-		if($user == false) {
-			$u = $_SESSION["user"];
-			$user = getUserIdByToken($u["token"]);
-		}
-		$table = YOURLS_DB_TABLE_URL_TO_USER;
-		if($user != false && !empty($keyword)) {
-			$ydb->query("insert into `$table` (url_keyword, users_user_id) values ('$keyword', '$user')");
-		}
+	$token = ( isset( $_REQUEST['token'] ) ? yourls_sanitize_string($_REQUEST['token']) : '' );
+	$user = getUserIdByToken($token);
+	if($user == false) {
+		$u = $_SESSION["user"];
+		$user = getUserIdByToken($u["token"]);
 	}
+	$table = YOURLS_DB_TABLE_URL_TO_USER;
+	if($user != false && !empty($keyword)) {
+		$ydb->query("insert into `$table` (url_keyword, users_user_id) values ('$keyword', '$user')");
+	}
+
 }
 
 function trapApi($args) {

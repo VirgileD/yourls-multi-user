@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("./includes/load-yourls.php");
+include_once("../../../includes/load-yourls.php");
 include_once("mufunctions.php");
 include_once("muhtmlfunctions.php");
 
