@@ -50,9 +50,9 @@ if((verifyUrlOwner($keyword, $user["id"]) && YOURLS_MULTIUSER_PROTECTED === true
 	}
 	
 	if( yourls_do_log_redirect() ) {
-	
+		global $ydb;
 		// Duplicate keywords, if applicable
-		$keyword_list = yourls_get_duplicate_keywords( $longurl );
+		$keyword_list = yourls_get_longurl_keywords( $longurl );
 			
 		// Fetch all information from the table log
 		$table = YOURLS_DB_TABLE_LOG;
