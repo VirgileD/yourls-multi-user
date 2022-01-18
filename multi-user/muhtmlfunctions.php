@@ -85,7 +85,7 @@ function mu_html_menu() {
 	echo "
 		<script type=\"text/javascript\">
 		//<![CDATA[
-			var ajaxurl = '" . muAdminUrl("admin-ajax.php") . "';
+			var ajaxurl = 'admin-ajax.php';
 		//]]>
 		</script>";
 	?>
@@ -95,12 +95,12 @@ function mu_html_menu() {
 	if(isLogged()) {
 		?>
 	
-	<li><a href="<?php echo muAdminUrl('index.php?act=logout'); ?>">Logout</a>
+	<li><a href="index.php?act=logout">Logout</a>
 	</li>
 	<?php
 	} else {
 		?>
-	<li><a href="<?php echo muAdminUrl('index.php'); ?>">Log in</a></li>
+	<li><a href="index.php">Log in</a></li>
 			<?php
 	}
 	?>
