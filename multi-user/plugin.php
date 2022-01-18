@@ -62,7 +62,7 @@ function tryToInstall() {
 		$ydb->query("CREATE TABLE `$tableuser` (
 		 `user_id` int(11) NOT NULL auto_increment,
 		 `user_email` varchar(200) NOT NULL,
-		 `user_password` varchar(32) NOT NULL,
+		 `user_password` varchar(60) NOT NULL,
 		 `user_token` varchar(50) NOT NULL,
 		 PRIMARY KEY  (`user_id`),
 		 UNIQUE KEY `user_email_UNIQUE` (`user_email`),
@@ -75,7 +75,7 @@ function tryToInstall() {
 			foreach ($yourls_user_passwords as $username => $pass) {
 				error_log($username."=>".$pass);
 				$token = createRandonToken();
-				$password = md5($pass);
+				$password = yourls_phpass_hash( $pass );
 				$ydb->query("insert into `$tableuser` (user_email, user_password, user_token) values ('$username', '$password', '$token')");
 			}
 		}

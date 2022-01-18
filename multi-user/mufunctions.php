@@ -187,8 +187,8 @@ function isValidUser($user, $pass) {
 		} else {
 		    /* authentication failed */
 			/* see if we have a local account  */
-			$pass = md5($pass);
-			$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$pass'");
+			$passw = yourls_phpass_hash( $pass );
+			$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$passw'");
 			if(!empty($results)) {
 				return true;
 			}
@@ -206,8 +206,8 @@ function isValidUser($user, $pass) {
 		}	
 	} else {
 		/* see if we have a local account  */
-		$pass = md5($pass);
-		$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$pass'");
+		$passw = yourls_phpass_hash( $pass );
+		$results = $ydb->get_results("select user_token from `$table` where `user_email` = '$user' and `user_password` = '$passw'");
 		if(!empty($results)) {
 			return true;
 		}
