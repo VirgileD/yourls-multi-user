@@ -3,13 +3,12 @@ session_start();
 include_once("mufunctions.php");
 
 /*
- Plugin Name: Multi User
- Plugin URI: http://www.matbra.com/code/multi-user-yourls-plugin/
- Description: Multi User Support
- Version: 1.7beta
- Author: Matheus (X-warrior) - matheusbrat@gmail.com
- Author URI: http://matbra.com
- */
+ Plugin Name: Ldap Multi User
+ Plugin URI: https://github.com/VirgileD/yourls-multi-user
+ Description: Ldap Multi User Support
+ Version: NA
+ Author:  Matheus Bratfisch / Chris Keslar / V.Devaux
+  */
 
 // No direct call
 if( !defined( 'YOURLS_ABSPATH' ) ) die();

@@ -293,7 +293,8 @@ if(isLogged()) {
 			$title = $url_result->title ? $url_result->title : '';
 			$clicks = $url_result->clicks;
 
-			echo mu_table_add_row( $keyword, $url, $title, $ip, $clicks, $timestamp );
+			//echo mu_table_add_row( $keyword, $url, $title, $ip, $clicks, $timestamp );
+			echo yourls_table_add_row( $keyword, $url, $title, $ip, $clicks, $timestamp );
 		}
 	}
 
