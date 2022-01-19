@@ -18,7 +18,6 @@ if($act == "logout") {
 
 if(!isLogged()) {
 	yourls_html_head( 'login' );
-	mu_html_menu();
 	// Login form
 	switch($act) {
 		case "login":
